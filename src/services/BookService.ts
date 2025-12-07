@@ -1,5 +1,10 @@
 // Use relative path for Vite proxy in development, or full URL for production
 const API_URL = import.meta.env.DEV ? "/api" : "http://localhost/elibrary_api";
+// Hosted backend on your domain
+// Use HTTP because your domain is not serving HTTPS yet
+//const API_URL = "http://elibrabry.gt.tc/elibrary_api";
+
+
 
 export async function getBooks() {
   try {

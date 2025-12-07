@@ -3,23 +3,26 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
 
-      <ion-tab-bar slot="bottom" class="custom-tab-bar">
+      <ion-tab-bar slot="bottom" class="modern-tab-bar">
         <!-- Home -->
-        <ion-tab-button tab="home" href="/tabs/tab1" class="custom-tab-button">
+        <ion-tab-button tab="home" href="/tabs/tab1" class="modern-tab-button">
+          <div class="tab-indicator"></div>
           <ion-icon aria-hidden="true" :icon="homeOutline" class="tab-icon" />
           <ion-label class="tab-label">Home</ion-label>
         </ion-tab-button>
 
         <!-- Books List -->
-        <ion-tab-button tab="books" href="/tabs/tab2" class="custom-tab-button">
+        <ion-tab-button tab="books" href="/tabs/tab2" class="modern-tab-button">
+          <div class="tab-indicator"></div>
           <ion-icon aria-hidden="true" :icon="bookOutline" class="tab-icon" />
           <ion-label class="tab-label">Library</ion-label>
         </ion-tab-button>
 
         <!-- Add Book -->
-        <ion-tab-button tab="add" href="/tabs/tab3" class="custom-tab-button">
+        <ion-tab-button tab="add" href="/tabs/tab3" class="modern-tab-button">
+          <div class="tab-indicator"></div>
           <ion-icon aria-hidden="true" :icon="addOutline" class="tab-icon" />
-          <ion-label class="tab-label">Add Book</ion-label>
+          <ion-label class="tab-label">Add</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -45,111 +48,155 @@ import {
 </script>
 
 <style scoped>
-.custom-tab-bar {
-  --background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-  padding-top: 4px;
+.modern-tab-bar {
+  --background: transparent;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  height: 72px;
+  min-height: 72px;
   padding-bottom: env(safe-area-inset-bottom, 0);
-  height: 60px;
-  min-height: 60px;
 }
 
-.custom-tab-button {
-  --color: #6c757d;
-  --color-selected: #3880ff;
-  transition: all 0.2s ease-in-out;
-  border-radius: 12px 12px 0 0;
-  margin: 0 2px;
-  padding-top: 4px;
-}
-
-.custom-tab-button:hover {
-  background: rgba(56, 128, 255, 0.05);
-}
-
-.custom-tab-button.tab-selected {
-  --color: #3880ff;
-  background: rgba(56, 128, 255, 0.08);
+.modern-tab-button {
+  --color: #94a3b8;
+  --color-selected: #1e293b;
   position: relative;
+  overflow: visible;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.custom-tab-button.tab-selected::before {
-  content: '';
+.tab-indicator {
   position: absolute;
-  top: 0;
+  top: -12px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
+  transform: translateX(-50%) scaleX(0);
+  width: 28px;
   height: 3px;
-  background: linear-gradient(90deg, #3880ff, #5c9aff);
-  border-radius: 0 0 3px 3px;
+  background: #1e293b;
+  border-radius: 2px;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-tab-button.tab-selected .tab-indicator {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
 }
 
 .tab-icon {
-  font-size: 24px;
-  margin-bottom: 2px;
-  transition: transform 0.2s ease-in-out;
+  font-size: 22px;
+  margin-bottom: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: grayscale(100%);
+  opacity: 0.7;
 }
 
-.custom-tab-button.tab-selected .tab-icon {
-  transform: scale(1.1);
-  filter: drop-shadow(0 2px 4px rgba(56, 128, 255, 0.3));
+.modern-tab-button.tab-selected .tab-icon {
+  font-size: 24px;
+  filter: grayscale(0%);
+  opacity: 1;
+  color: #1e293b;
 }
 
 .tab-label {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.2px;
-  margin-top: 2px;
-  transition: all 0.2s ease-in-out;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.custom-tab-button.tab-selected .tab-label {
+.modern-tab-button.tab-selected .tab-label {
+  opacity: 1;
   font-weight: 600;
-  color: #3880ff;
+  color: #1e293b;
+}
+
+/* Add subtle hover effect */
+.modern-tab-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease;
+}
+
+.modern-tab-button:hover::after {
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-  .custom-tab-bar {
-    --background: linear-gradient(180deg, #1e1e1e 0%, #2d2d2d 100%);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  .modern-tab-bar {
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  .custom-tab-button {
-    --color: #9ca3af;
-    --color-selected: #5c9aff;
+  .modern-tab-button {
+    --color: #64748b;
+    --color-selected: #f1f5f9;
   }
 
-  .custom-tab-button:hover {
-    background: rgba(92, 154, 255, 0.1);
+  .tab-indicator {
+    background: #f1f5f9;
   }
 
-  .custom-tab-button.tab-selected {
-    --color: #5c9aff;
-    background: rgba(92, 154, 255, 0.15);
+  .modern-tab-button.tab-selected .tab-icon {
+    color: #f1f5f9;
   }
 
-  .custom-tab-button.tab-selected::before {
-    background: linear-gradient(90deg, #5c9aff, #7ab3ff);
+  .modern-tab-button.tab-selected .tab-label {
+    color: #f1f5f9;
+  }
+
+  .modern-tab-button::after {
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
-/* Enhanced mobile experience */
+/* Mobile optimizations */
 @media (max-width: 768px) {
-  .custom-tab-bar {
-    height: 65px;
-    min-height: 65px;
+  .modern-tab-bar {
+    height: 76px;
+    min-height: 76px;
+    padding-bottom: max(env(safe-area-inset-bottom, 0), 8px);
   }
 
   .tab-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .modern-tab-button.tab-selected .tab-icon {
     font-size: 26px;
   }
 
   .tab-label {
     font-size: 12px;
   }
+}
+
+/* Add micro-interaction for active state */
+@keyframes tabPress {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+.modern-tab-button:active .tab-icon {
+  animation: tabPress 0.2s ease;
 }
 </style>

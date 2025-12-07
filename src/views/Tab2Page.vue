@@ -1,10 +1,6 @@
 <template>
   <ion-page>
-    <ion-header class="custom-header">
-      <ion-toolbar>
-        <ion-title>Library</ion-title>
-      </ion-toolbar>
-    </ion-header>
+
 
     <ion-content class="ion-padding custom-content">
       <div class="page-header">
